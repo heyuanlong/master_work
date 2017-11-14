@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="busi">
+      <UniqueIdentifier>{11d346a5-fe31-4edc-bb79-cbadf82670ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="clientTest">
+      <UniqueIdentifier>{dbd5bbb4-a50a-4018-a87c-1948abb70321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="conn">
+      <UniqueIdentifier>{2610a0ab-45c8-454b-a561-ccfcc48519a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{fa7ca0f2-b343-4d80-94ee-a6895c7625d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{6fb7e86f-1e8e-4456-9b5f-a533bb452248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{da961ceb-8ff6-4619-a4fa-8e0dc683cdf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="os">
+      <UniqueIdentifier>{7c603eb3-f1da-4137-aaed-225ca27d7c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="busi\busi_test">
+      <UniqueIdentifier>{b94ba0f7-57da-4185-a89d-da3905a623db}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\busi\busi_test\vs_busi_test.c">
+      <Filter>busi\busi_test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\busi\vs_busi.c">
+      <Filter>busi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\clientTest\client.cpp">
+      <Filter>clientTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\conn\vs_conn.c">
+      <Filter>conn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\conn\vs_conn_accept.c">
+      <Filter>conn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\conn\vs_conn_listen.c">
+      <Filter>conn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\conn\vs_conn_recv.c">
+      <Filter>conn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\conn\vs_conn_send.c">
+      <Filter>conn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\vs_config.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\vs_log.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\vs_rbtree.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\vs_time.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\event\vs_event.c">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\event\vs_event_timer.c">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\net\vs_net.c">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\net\vs_net_channel.c">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\net\vs_socket.c">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\os\vs_daemon.c">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\os\vs_init_cycle.c">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\os\vs_process.c">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\os\vs_process_cycle.c">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\busi\busi_test\vs_busi_test.h">
+      <Filter>busi\busi_test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\busi\vs_busi.h">
+      <Filter>busi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\busi\vs_interface.h">
+      <Filter>busi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\clientTest\client.h">
+      <Filter>clientTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\conn\vs_conn.h">
+      <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\conn\vs_conn_accept.h">
+      <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\conn\vs_conn_listen.h">
+      <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\conn\vs_conn_recv.h">
+      <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\conn\vs_conn_send.h">
+      <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\vs_config.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\vs_core.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\vs_log.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\vs_rbtree.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\vs_time.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\event\vs_event.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\event\vs_event_timer.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\net\vs_net.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\net\vs_net_channel.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\net\vs_socket.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_daemon.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_init_cycle.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_process.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_process_cycle.h">
+      <Filter>os</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Makefile" />
+  </ItemGroup>
+</Project>

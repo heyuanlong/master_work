@@ -1,0 +1,62 @@
+
+
+
+
+1.初始化config
+2.初始化log
+3.初始化信号处理
+4.初始化 tcp listen
+5.for {
+socketpair;
+fork
+}
+6.master进程等待信号
+
+7.初始化event
+8.listen fd加入event
+9.channel fd加入event
+10.accpet{
+	client fd加入event
+}
+11.channel{
+	处理父进程信号
+}
+12.client event{
+	回调到busi
+}
+
+把conn c当做信使 		1
+
+初始化内存池
+转为deamon
+超时的链接 				1
+recv buf				1
+send buf 
+回调到busi 				1
+超时event 				1
+channel 关闭。
+
+vs——sln
+整理 					
+优化 					
+
+
+EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里
+
+
+MSG_NOSIGNAL (since Linux 2.2)
+Requests not to send SIGPIPE on errors on stream oriented sockets when the other end breaks the connection.  The EPIPE error is still returned.
+
+服务器设置 { SIGPIPE,  "SIGPIPE, SIG_IGN", "", 	SIG_IGN },
+
+
+
+
+
+
+
+
+
+
+
+
