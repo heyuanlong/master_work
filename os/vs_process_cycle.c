@@ -89,7 +89,7 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 	c = vs_conn_get(cycle->tcp_listener->fd);
 	rev = c->rev;
 	rev->handle = vs_net_accept_handle;
-	vs_event_add_conn(c);
+	vs_event_add_conn(c, VS_EVENT_TYPE_READ);
 
 	vs_net_add_channel_event(vs_channel);
 

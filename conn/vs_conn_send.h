@@ -5,7 +5,12 @@
 
 #include "vs_conn.h"
 
-int vs_conn_send( vs_conn_t  *c);
+
+
+
+
+int vs_conn_send(int fd,void *buf,int size);
+
 
 
 #endif

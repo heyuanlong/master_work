@@ -40,8 +40,8 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 		wev = c->wev;
 		rev->handle = vs_net_read_handle;
 		wev->handle = vs_net_send_handle;
-		rev->handle( rev );
-		if (vs_event_add_conn( c ) < 0){
+		//rev->handle( rev );
+		if (vs_event_add_conn( c , VS_EVENT_TYPE_READ) < 0){
 			printf("%s fail\n", "vs_event_add_conn");
 			return VS_ERROR;
 		}

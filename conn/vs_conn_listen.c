@@ -11,7 +11,7 @@ int vs_tcp_listen_create(vs_cycle_t* cycle)
 	int 					port;
 	char* 					ip;
 
-	port = 7706;
+	port = 6000;
 	ip = "0.0.0.0";
 
 

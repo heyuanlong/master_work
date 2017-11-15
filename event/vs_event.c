@@ -66,36 +66,26 @@ int vs_process_events(vs_cycle_t *cycle)
 		}
 		events = event_list[ i ].events;
 		if( events & (EPOLLERR|EPOLLHUP) ){
-            //ko_log_print_debug("epoll event error, revents:%d", revents);
-			//ko_conn_close( c );
+			vs_log_sys_error("epoll event error:%s", strerror(errno));
+			vs_net_error_handle( c );
 			continue;
 		}
 
 		rev = c->rev;
-		if (rev == NULL){
-			//printf("%s\n", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-		}else{
-			//printf("%s\n", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr---go");
-			if( ( events & EPOLLIN ) && rev->active ){
-				if (rev->handle){
-					//printf("%s\n", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr---go1111111111");
-					rev->handle(rev);
-				}
+		if( ( events & EPOLLIN ) && rev->active ){
+			if (rev->handle){
+				//printf("%s\n", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr---go1111111111");
+				rev->handle(rev);
 			}
 		}
-
         wev = c->wev;
-        if (wev == NULL){
-			//printf("%s\n", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-		}else{
-			//printf("%s\n", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww---go");
-			if( ( events & EPOLLOUT ) && wev->active ){
-				if (wev->handle){
-					//printf("%s\n", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww---go1111111111");
-					wev->handle(wev);
-				}
+		if( ( events & EPOLLOUT ) && wev->active ){
+			if (wev->handle){
+				//printf("%s\n", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww---go1111111111");
+				wev->handle(wev);
 			}
 		}
+		
 	}
 
 	return VS_OK;
@@ -109,47 +99,92 @@ int vs_event_del( vs_event_t* ev, int type )
 {
 	return VS_OK;
 }
-int vs_event_add_conn( void* conn )
+int vs_event_add_conn( void* conn, int type)
 {
 	vs_conn_t*			  c;
 	struct epoll_event	  ee;
 	int					  etype;
     vs_event_t*		  rev;
 	vs_event_t*		  wev;
-   
+	int do_type;
+
 	c = conn;
 	rev = c->rev;
 	wev = c->wev;
-	rev->active = 1;
-	wev->active = 1;
-	rev->type = VS_EVENT_TYPE_READ;
-	wev->type = VS_EVENT_TYPE_WRITE;
+	do_type = EPOLL_CTL_ADD;
+	etype = EPOLLET;
 
-	etype = EPOLLIN | EPOLLOUT | EPOLLET;
+	if (type == VS_EVENT_TYPE_READ) {
+		if (rev->active == 1) {
+			return VS_OK;
+		}
+		etype |= EPOLLIN;
+		rev->active = 1;
+		if (wev->active) {
+			etype |= EPOLLOUT;
+			do_type = EPOLL_CTL_MOD;
+		}
+	}
+	else {			//VS_EVENT_TYPE_WRITE
+		if (wev->active == 1) {
+			return VS_OK;
+		}
+		etype |= EPOLLOUT;
+		wev->active = 1;
+		if (rev->active) {
+			etype |= EPOLLIN;
+			do_type = EPOLL_CTL_MOD;
+		}
+	}
 
 	ee.events = etype;
 	ee.data.u64 = c;
-	printf("%s\n","epoll_ctl" );
-	if (epoll_ctl( ep, EPOLL_CTL_ADD, c->fd, &ee ) < 0){
-		printf("epoll_ctl fail: %s\n",strerror(errno) );
+	if (epoll_ctl( ep, do_type, c->fd, &ee ) < 0){
+		printf("vs_event_add_conn epoll_ctl fail: %s\n",strerror(errno) );
 		return VS_ERROR;
 	}
 
 	return VS_OK;
 }
-int vs_event_del_conn( void* conn )
+int vs_event_del_conn( void* conn, int type)
 {
-	vs_conn_t*				c;
-    vs_event_t				*rev, *wev;
+	vs_conn_t*					c;
+	struct epoll_event			ee;
+    vs_event_t					*rev, *wev;
+	int							etype;
+	int do_type;
 
 	c = conn;
     rev = c->rev;
-	wev = c->wev;
-    rev->active = 0;
-	wev->active = 0;    
+	wev = c->wev; 
 
-	if (epoll_ctl( ep, EPOLL_CTL_DEL,  c->fd,NULL ) < 0){
-		printf("epoll_ctl EPOLL_CTL_DEL fail: %s\n",strerror(errno) );
+	do_type = EPOLL_CTL_DEL;
+	etype = EPOLLET;
+
+	if (type == VS_EVENT_TYPE_READ) {
+		if (rev->active == 0) {
+			return VS_OK;
+		}
+		rev->active = 0;
+		if (wev->active) {
+			etype |= EPOLLOUT;
+			do_type = EPOLL_CTL_MOD;
+		}
+	}
+	else {			//VS_EVENT_TYPE_WRITE
+		if (wev->active == 0) {
+			return VS_OK;
+		}
+		wev->active = 0;
+		if (rev->active) {
+			etype |= EPOLLIN;
+			do_type = EPOLL_CTL_MOD;
+		}
+	}
+	ee.events = etype;
+	ee.data.u64 = c;
+	if (epoll_ctl( ep, do_type,  c->fd, &ee) < 0){
+		printf("vs_event_del_conn epoll_ctl fail: %s\n",strerror(errno) );
 		return VS_ERROR;
 	}
 	return VS_OK;

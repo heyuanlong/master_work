@@ -31,9 +31,10 @@ int vs_event_process_init(vs_cycle_t* cycle);
 int vs_process_events(vs_cycle_t *cycle);
 
 int vs_event_add( vs_event_t* ev, int type );
-int vs_event_add_conn( void* conn );
+int vs_event_add_conn( void* conn,int type );
+
 int vs_event_del( vs_event_t* ev, int type );
-int vs_event_del_conn( void* conn );
+int vs_event_del_conn( void* conn, int type);
 
 
 #endif

@@ -13,12 +13,14 @@ int vs_net_module_init(vs_cycle_t* cycle);
 int vs_net_accept_handle( vs_event_t* ev );
 int vs_net_read_handle( vs_event_t* ev );
 int vs_net_send_handle( vs_event_t* ev );
+int vs_net_error_handle(vs_conn_t *c);
+
 int vs_net_timeout_handle( vs_event_timer_t* ev );
 
 
 //-----------------------------
 int vs_net_set_conn_close(vs_conn_t *c);
-
+int vs_net_send_tcp(vs_conn_t *c,void * buf,int size);
 
 
 

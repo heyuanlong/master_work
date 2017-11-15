@@ -31,12 +31,14 @@ fork
 转为deamon
 超时的链接 				1
 recv buf				1
-send buf 
+send buf				1
 回调到busi 				1
 超时event 				1
 channel 关闭。
+add wev					1
 
-vs——sln
+
+vs——sln				1
 整理 					
 优化 					
 

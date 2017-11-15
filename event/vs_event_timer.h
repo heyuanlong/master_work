@@ -11,7 +11,7 @@
 #include "vs_event.h"
 #include "vs_rbtree.h"
 
-#define TIMEOUTS	6
+#define TIMEOUTS	2
 
 
 

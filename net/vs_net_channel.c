@@ -23,7 +23,7 @@ int vs_net_add_channel_event(int ch)
 	rev->handle = vs_net_read_channel_handle;
 	wev->handle = NULL;
 	rev->handle( rev );
-	if (vs_event_add_conn( c ) < 0){
+	if (vs_event_add_conn( c, VS_EVENT_TYPE_READ) < 0){
 		printf("%s fail\n", "vs_event_add_conn");
 		return VS_ERROR;
 	}
