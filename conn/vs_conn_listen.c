@@ -11,12 +11,13 @@ int vs_tcp_listen_create(vs_cycle_t* cycle)
 	int 					port;
 	char* 					ip;
 
-	port = 6000;
-	ip = "0.0.0.0";
+	ip = TCP_IP;	
+	port = TCP_PORT;
 
 
 	fd = socket( AF_INET, SOCK_STREAM, 0 );
 	if( fd<= 0 ){
+		vs_log_sys_error("socket fail:%s", strerror(errno));
 		return VS_ERROR;
 	}
 	vs_nonblocking(fd);
@@ -28,11 +29,13 @@ int vs_tcp_listen_create(vs_cycle_t* cycle)
 	flag = bind( fd, ( struct sockaddr* ) &addr, sizeof( addr ) );
 	if( flag ){
 		close( fd );
+		vs_log_sys_error("bind fail:%s",strerror(errno));
 		return VS_ERROR;
 	}
 	flag = listen( fd, 128);
 	if( flag ){
 		close( fd );
+		vs_log_sys_error("listen fail:%s", strerror(errno));
 		return VS_ERROR;
 	}
 

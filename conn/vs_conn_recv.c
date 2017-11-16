@@ -16,7 +16,7 @@ int vs_conn_recv( vs_conn_t  *c)
 			else if( errno == EINTR ){
 				continue;
 			}
-			vs_log_sys_error("recv client error");
+			vs_log_sys_error("recv client error:%d :%s", errno,strerror(errno));
 			c->client_error = 1;
 			return VS_CONN_RECV_ERROR;
 		}

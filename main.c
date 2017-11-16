@@ -8,7 +8,8 @@
 #include "vs_process_cycle.h"
 #include "vs_config.h"
 #include "vs_log.h"
-
+#include "vs_signal.h"
+#include "vs_daemon.h"
 
 int main(int argc, char const *argv[])
 {
@@ -22,6 +23,11 @@ int main(int argc, char const *argv[])
 	vs_log_set_level(VS_LOG_LEVEL_MAX);
 	vs_log_set_path( "../log/");
 	vs_log_set_path_for_printf();
+
+#if 0
+	vs_daemon();
+#endif // 
+
 	
 	vs_init_signals();
 	vs_event_timer_init();

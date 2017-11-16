@@ -8,23 +8,13 @@
 int vs_net_add_channel_event(int ch)
 {
 	vs_conn_t 				*c;
-	vs_event_t 				*rev, *wev;
+	vs_event_t 				*rev;
 
 	c = vs_conn_get( ch );
-	if( NULL == c ){
-		close( ch );
-		printf("%s fail\n","vs_conn_get" );
-		//ko_log_error( "cannot get conn in accept" );
-		return VS_ERROR;
-	}
-
 	rev = c->rev;
-	wev = c->wev;
 	rev->handle = vs_net_read_channel_handle;
-	wev->handle = NULL;
 	rev->handle( rev );
 	if (vs_event_add_conn( c, VS_EVENT_TYPE_READ) < 0){
-		printf("%s fail\n", "vs_event_add_conn");
 		return VS_ERROR;
 	}
 
@@ -42,7 +32,6 @@ int vs_net_read_channel_handle( vs_event_t* ev )
 
 	while( 1 ){
 		memset(buf,0,size);
-		printf("recv channel fd:%d \n",ev->fd );
 		flag = recv( ev->fd, buf, size, 0 );
 		if( flag < 0 ){
 			if( errno == EAGAIN ){
@@ -51,7 +40,7 @@ int vs_net_read_channel_handle( vs_event_t* ev )
 			else if( errno == EINTR ){
 				continue;
 			}
-			printf("%s VS_ERROR\n","recv channel");
+			vs_log_sys_error("recv channel VS_ERROR :%s",strerror(errno));
 			return VS_ERROR;
 		}
 		if (flag == 0){
@@ -59,11 +48,11 @@ int vs_net_read_channel_handle( vs_event_t* ev )
 			return VS_OK;
 		}
 		if (flag < sizeof(vs_channel_t)){
-			printf("%s VS_ERROR\n","recv channel size");
+			vs_log_sys_error("recv channel size fail");
 			return VS_ERROR;
 		}
 		data = buf;
-		printf("vs_channel_t:%d\n",data->type );
+		vs_log_sys_info("vs_channel_t type:%d\n",data->type );
 		if (data->type == 2){
 			exit(0);
 		}
@@ -101,7 +90,7 @@ int vs_net_send_channel( int ch , vs_channel_t data )
 				case EAGAIN:
 					return send_len;
 			}
-			printf("vs_net_send_channel error:%d ,%s",errno,strerror(errno));
+			vs_log_sys_error("vs_net_send_channel error:%d ,%s",errno,strerror(errno));
 			return VS_ERROR;
 		}
 		send_len += flag;

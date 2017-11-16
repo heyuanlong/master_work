@@ -22,7 +22,7 @@ int vs_conn_send(int fd, void *buf, int size)
 			case EAGAIN:
 				return send_len;
 			}
-			//LOG_ERROR("socket_send_tcp error:%d", errno);
+			vs_log_sys_error("socket_send_tcp error:%d,%s", errno,strerror(errno));
 			return VS_CONN_SEND_ERROR;
 		}
 		send_len += flag;

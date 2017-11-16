@@ -91,6 +91,9 @@
       <Filter>os</Filter>
     </ClCompile>
     <ClCompile Include="..\..\main.c" />
+    <ClCompile Include="..\..\os\vs_signal.c">
+      <Filter>os</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\busi\busi_test\vs_busi_test.h">
@@ -160,6 +163,9 @@
       <Filter>os</Filter>
     </ClInclude>
     <ClInclude Include="..\..\os\vs_process_cycle.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_signal.h">
       <Filter>os</Filter>
     </ClInclude>
   </ItemGroup>

@@ -134,6 +134,7 @@
     <ClCompile Include="..\..\os\vs_init_cycle.c" />
     <ClCompile Include="..\..\os\vs_process.c" />
     <ClCompile Include="..\..\os\vs_process_cycle.c" />
+    <ClCompile Include="..\..\os\vs_signal.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\busi\busi_test\vs_busi_test.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="..\..\os\vs_init_cycle.h" />
     <ClInclude Include="..\..\os\vs_process.h" />
     <ClInclude Include="..\..\os\vs_process_cycle.h" />
+    <ClInclude Include="..\..\os\vs_signal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Makefile" />

@@ -24,7 +24,7 @@ int vs_event_process_init(vs_cycle_t *cycle)
 	event_list = malloc(sizeof(struct epoll_event) * nevents );
 	ep = epoll_create(nevents);
 	if(ep == -1){
-		printf("%s fail\n","epoll_create" );
+		vs_log_sys_error("epoll_create  fail:%s",strerror(errno) );
 		return VS_ERROR;
 	}
 
@@ -41,27 +41,24 @@ int vs_process_events(vs_cycle_t *cycle)
 	vs_event_t 			*wev;
 	int 				i;
 
-	timer = 5000;
+	timer = EPOLL_TIMEOUT;
 	nums = epoll_wait( ep, event_list, nevents, timer );
-	printf("epoll_wait ok %d\n",nums );
+	vs_log_sys_info("epoll_wait ok %d",nums );
 	if( nums < 0 ){
 		switch( errno ){
 			case EBADF:
 			case EINVAL:
-				//log
+				vs_log_sys_error("epoll_wait error:%s", strerror(errno));
 				return VS_ERROR;
 		}
 	}
 	if( nums <= 0 ){
-		printf("%s\n","epoll_wait timeout" );
 		return VS_OK;
 	}
-	//vs_log_sys_info("process:%d --%s %d\n",getpid(),"epoll_wait-----------------",nums);
 
 	for( i = 0; i < nums; ++i ){
 		c = event_list[ i ].data.u64;
 		if( c->fd == -1 ){
-			//ko_log_error( "event process socket -1\n" );
 			continue;
 		}
 		events = event_list[ i ].events;
@@ -74,14 +71,12 @@ int vs_process_events(vs_cycle_t *cycle)
 		rev = c->rev;
 		if( ( events & EPOLLIN ) && rev->active ){
 			if (rev->handle){
-				//printf("%s\n", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr---go1111111111");
 				rev->handle(rev);
 			}
 		}
         wev = c->wev;
 		if( ( events & EPOLLOUT ) && wev->active ){
 			if (wev->handle){
-				//printf("%s\n", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww---go1111111111");
 				wev->handle(wev);
 			}
 		}
@@ -140,7 +135,7 @@ int vs_event_add_conn( void* conn, int type)
 	ee.events = etype;
 	ee.data.u64 = c;
 	if (epoll_ctl( ep, do_type, c->fd, &ee ) < 0){
-		printf("vs_event_add_conn epoll_ctl fail: %s\n",strerror(errno) );
+		vs_log_sys_error("vs_event_add_conn epoll_ctl fail: %s",strerror(errno) );
 		return VS_ERROR;
 	}
 
@@ -184,7 +179,7 @@ int vs_event_del_conn( void* conn, int type)
 	ee.events = etype;
 	ee.data.u64 = c;
 	if (epoll_ctl( ep, do_type,  c->fd, &ee) < 0){
-		printf("vs_event_del_conn epoll_ctl fail: %s\n",strerror(errno) );
+		vs_log_sys_error("vs_event_del_conn epoll_ctl fail: %s",strerror(errno) );
 		return VS_ERROR;
 	}
 	return VS_OK;

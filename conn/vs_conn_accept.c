@@ -21,7 +21,7 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 				case ECONNABORTED:
 					continue;
 			}
-			printf("%s fail\n","accept" );
+			vs_log_sys_error("accept error:%d :%s", errno, strerror(errno));
 			return VS_ERROR;
 		}
 		vs_nonblocking(fd);
@@ -30,8 +30,6 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 		c = vs_conn_get( fd );
 		if( NULL == c ){
 			close( fd );
-			printf("%s fail\n","vs_conn_get" );
-			//ko_log_error( "cannot get conn in accept" );
 			return VS_ERROR;
 		}
 		vs_event_timer_add(c,TIMEOUTS);
@@ -42,7 +40,7 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 		wev->handle = vs_net_send_handle;
 		//rev->handle( rev );
 		if (vs_event_add_conn( c , VS_EVENT_TYPE_READ) < 0){
-			printf("%s fail\n", "vs_event_add_conn");
+			vs_log_sys_error("vs_event_add_conn fail");
 			return VS_ERROR;
 		}
 		

@@ -37,6 +37,6 @@ extern int   vs_last_process;
 extern vs_process_t    vs_processes[VS_MAX_PROCESSES];
 
 int 	vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data);		//fork进程
-int 	vs_init_signals();
+
 
 #endif

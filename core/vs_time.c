@@ -93,5 +93,5 @@ void vs_time_update()
         vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.data = p;
 	}
 
-
+	return;
 }

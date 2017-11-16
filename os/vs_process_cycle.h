@@ -10,6 +10,8 @@
 
 #include "vs_core.h"
 
+#define PROCESS_NUMS 1
+
 extern int vs_reap;
 extern int vs_terminate;
 extern int vs_quit;

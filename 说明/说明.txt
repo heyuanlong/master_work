@@ -34,7 +34,6 @@ recv buf				1
 send buf				1
 回调到busi 				1
 超时event 				1
-channel 关闭。
 add wev					1
 
 
@@ -57,7 +56,7 @@ Requests not to send SIGPIPE on errors on stream oriented sockets when the other
 
 
 
-
+./clienttestnet 127.0.0.1 6000 2 5
 
 
 

@@ -76,7 +76,7 @@ vs_conn_t* 			vs_conn_get( int fd )
 	
 	
 
-	printf("vs_conn_get :%d\n",fd);
+	vs_log_sys_info("vs_conn_get :%d",fd);
 
 	return c;
 }
@@ -114,7 +114,6 @@ vs_conn_send_chain_t*  vs_conn_send_chain_get(vs_conn_t *c, void * buf,int size)
 		chain->allsize = size;
 		chain->next = NULL;
 		memcpy(chain->data, buf, size);
-		printf("--------------------------------vs_conn_send_chain_get malloc \n");
 	}
 	else {
 		chain = *pch;
@@ -124,7 +123,6 @@ vs_conn_send_chain_t*  vs_conn_send_chain_get(vs_conn_t *c, void * buf,int size)
 		chain->next = NULL;
 		memcpy(chain->data, buf, size);
 		c->send_spare_nums--;
-		printf("--------------------------------vs_conn_send_chain_get spare \n");
 	}
 
 	return chain;
@@ -133,7 +131,6 @@ int	vs_conn_send_chain_push(vs_conn_t *c, vs_conn_send_chain_t* chain)
 {
 	vs_conn_send_chain_t  **pch;
 
-	printf("--------------------------------vs_conn_send_chain_push \n");
 	chain->next = NULL;
 	pch = &c->send_chain;
 	while (*pch != NULL) {

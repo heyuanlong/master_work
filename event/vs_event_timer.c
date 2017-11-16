@@ -55,18 +55,16 @@ void vs_event_timer_expire()
     for ( ;; ) {
         root = vs_event_timer_rbtree.root;
         if (root == sentinel) {
-            printf("root == sentinel\n");
             return;
         }
 
         node = vs_rbtree_min(root, sentinel);
 
         if ( (long long)(node->key.v - vs_current_sec) > 0) {
-            printf("vs_event_timer_expire %d, %d\n",node->key.v , vs_current_sec);
+            //vs_log_sys_info("vs_event_timer_expire %d, %d",node->key.v , vs_current_sec);
             return;
         }
 
-        printf("vs_event_timer_expire----------------------\n");
         conn = (vs_conn_t *) ((char *) node - offsetof(vs_conn_t, timer_node));
         tev = conn->tev;
         vs_rbtree_delete(&vs_event_timer_rbtree, &conn->timer_node);
