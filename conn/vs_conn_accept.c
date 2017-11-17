@@ -25,7 +25,7 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 			return VS_ERROR;
 		}
 		vs_nonblocking(fd);
-		vs_socket_nodelay( c->fd );
+		vs_socket_nodelay( fd );
 		
 		c = vs_conn_get( fd );
 		if( NULL == c ){

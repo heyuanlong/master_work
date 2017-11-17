@@ -122,7 +122,7 @@ int vs_log_turn_sys()
 	pos = buffer + path_len;
 	
 	sprintf(pos, "/ko_sys_log.%s", get_time_str(false));
-	sys_fd = open(buffer,O_WRONLY|O_CREAT|O_TRUNC,0644);
+	sys_fd = open(buffer,O_WRONLY|O_CREAT| O_APPEND ,0644);
 	if( sys_fd <= 0 ){
 		printf( "error log :%s could not be opened\n", buffer );
 		return -1;
@@ -149,7 +149,7 @@ int vs_log_turn_app()
 	pos = buffer + path_len;
 	
 	sprintf(pos, "/ko_app_log.%s", get_time_str(false));
-	app_fd = open(buffer,O_WRONLY|O_CREAT|O_TRUNC,0644);
+	app_fd = open(buffer,O_WRONLY|O_CREAT| O_APPEND ,0644);
 	if( app_fd <= 0 ){
 		printf( "error log :%s could not be opened\n", buffer );
 		return -1;

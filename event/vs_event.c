@@ -43,6 +43,7 @@ int vs_process_events(vs_cycle_t *cycle)
 
 	timer = EPOLL_TIMEOUT;
 	nums = epoll_wait( ep, event_list, nevents, timer );
+	vs_time_update();
 	vs_log_sys_info("epoll_wait ok %d",nums );
 	if( nums < 0 ){
 		switch( errno ){
