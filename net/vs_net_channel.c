@@ -68,7 +68,10 @@ int vs_net_tell_child_quit()
 	data.type = 2;
 	for (i; i < vs_last_process; ++i)
 	{
-	    vs_net_send_channel(vs_processes[i].channel[0],data);
+		if (vs_processes[i].pid != -1) {
+			vs_net_send_channel(vs_processes[i].channel[0], data);
+			vs_log_sys_info("vs_net_send_channel pid:%d\n", vs_processes[i].pid);
+		}
 	}
 	return VS_OK;
 }

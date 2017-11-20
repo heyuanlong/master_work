@@ -5,10 +5,10 @@
 #include "vs_process_cycle.h"
 #include "vs_net_channel.h"
 
-int             vs_process_slot;
-int             vs_last_process;
-vs_process_t    vs_processes[VS_MAX_PROCESSES];
-int             vs_channel;
+volatile int             vs_process_slot;
+volatile int             vs_last_process;
+volatile vs_process_t    vs_processes[VS_MAX_PROCESSES];
+volatile int             vs_channel;
 
 
 int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
@@ -53,7 +53,6 @@ int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
     vs_processes[i].index = i;
     vs_processes[i].pid = pid;
     vs_processes[i].status = 0;
-    //vs_processes[i].channel = ;
     vs_processes[i].proc = proc;
     vs_processes[i].data = data;
 

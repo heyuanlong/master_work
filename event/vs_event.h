@@ -12,7 +12,7 @@
 
 #define VS_EVENT_TYPE_READ 			0
 #define VS_EVENT_TYPE_WRITE 		1
-#define EPOLL_TIMEOUT				500
+#define EPOLL_TIMEOUT				5000
 
 typedef struct vs_event_s vs_event_t;
 typedef int (*vs_event_handle_ptr)( vs_event_t *ev );

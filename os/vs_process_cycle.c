@@ -7,10 +7,10 @@
 
 
 int process_num = PROCESS_NUMS;
-int vs_reap;
-int vs_terminate;
-int vs_quit;
 
+int vs_child_quit;
+int vs_all_quit;
+int have_child_quit;
 
 void vs_start_worker_processes(vs_cycle_t *cycle);				//开启工作进程
 void vs_worker_process_cycle(vs_cycle_t *cycle,void *data);		//工作进程函数
@@ -20,6 +20,7 @@ void vs_master_process_cycle(vs_cycle_t *cycle)
 {
 	
 	sigset_t						set;
+	int								start_nums,i;
 
 	sigemptyset(&set);
     sigaddset(&set,SIGHUP);
@@ -39,9 +40,33 @@ void vs_master_process_cycle(vs_cycle_t *cycle)
 	sigemptyset(&set);
 
 	vs_start_worker_processes(cycle);			//fork工作进程
-
+	/*
+	ctrl + c		kill -2    重启所有子进程
+	ctrl + "\"		kill -3    关闭所有进程
+	*/
 	for ( ;; ) {
 		sigsuspend(&set);
+		if (vs_all_quit == 1) {
+			exit(0);
+		}
+		if (vs_child_quit == 1) {
+			vs_start_worker_processes(cycle);
+			vs_child_quit = 0;
+		}
+		if (have_child_quit == 1) {
+			start_nums = 0;
+			for (i = 0; i < vs_last_process; i++) {
+				if (vs_processes[i].pid != -1) {
+					start_nums++;
+				}
+			}
+			for (i = 0; i < process_num - start_nums; i++) {
+				if (vs_spawn_process(cycle, vs_worker_process_cycle, NULL) != VS_OK) {
+					vs_log_sys_error("restart vs_spawn_process fail");
+				}
+			}
+			have_child_quit = 0;
+		}
 	}
 }
 

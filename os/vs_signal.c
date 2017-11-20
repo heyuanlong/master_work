@@ -2,6 +2,7 @@
 
 #include "vs_process.h"
 #include "vs_process_cycle.h"
+#include <unistd.h>
 
 
 static void vs_process_get_status();
@@ -55,30 +56,29 @@ void vs_signal_handler(int signo)
     }
     switch (signo) {
         case SIGHUP:
-            vs_reap = 1;            
+			//vs_child_reap = 1;
             break;
         case SIGTERM:
-            vs_terminate = 1;            
+           // vs_terminate = 1;            
             break;
-        case SIGQUIT:
-            vs_quit = 1;            
+        case SIGQUIT:		//ctrl +"\"
+			vs_log_sys_info("GET SIGQUIT");
+			vs_all_quit = 1;
+			vs_net_tell_child_quit();
+			sleep(1);	//这句要加上，否则一些子进程的channel socket收到EPOLLERR|EPOLLHUP
             break;
-        case SIGINT:
-            vs_quit = 1;            
+        case SIGINT:		//ctrl + c
+			vs_log_sys_info("GET SIGINT");
+			vs_child_quit = 1;
+			vs_net_tell_child_quit();
             break;
+		case SIGCHLD:
+			vs_log_sys_info("GET SIGCHLD");
+			have_child_quit = 1;
+			vs_process_get_status();
+			break;
     }
 
-    if( SIGQUIT == signo ){
-		vs_log_sys_info("GET SIGQUIT");
-        exit(0);
-    }
-    if( SIGINT == signo ){
-		vs_log_sys_info("GET SIGINT");
-        vs_net_tell_child_quit();
-    }
-	if( SIGCHLD == signo ){
-        vs_process_get_status();
-    }
     return;
 }
 
@@ -122,6 +122,7 @@ static void vs_process_get_status()
         one = 1;
         for (i = 0; i < vs_last_process; i++) {
             if (vs_processes[i].pid == pid) {
+				vs_processes[i].pid = -1;
                 vs_processes[i].status = status;
                 vs_processes[i].exited = 1;
                 break;

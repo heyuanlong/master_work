@@ -12,10 +12,9 @@
 
 #define PROCESS_NUMS 2
 
-extern int vs_reap;
-extern int vs_terminate;
-extern int vs_quit;
-
+extern int vs_child_quit;
+extern int vs_all_quit;
+extern int have_child_quit;
 
 
 void vs_master_process_cycle(vs_cycle_t   *cycle);						//master进程函数

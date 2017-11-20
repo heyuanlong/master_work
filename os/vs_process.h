@@ -32,9 +32,9 @@ typedef struct {
 
 
 
-extern int   vs_channel;
-extern int   vs_last_process;
-extern vs_process_t    vs_processes[VS_MAX_PROCESSES];
+extern volatile int   vs_channel;
+extern volatile int   vs_last_process;
+extern volatile vs_process_t    vs_processes[VS_MAX_PROCESSES];
 
 int 	vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data);		//fork进程
 

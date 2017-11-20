@@ -23,8 +23,10 @@ int main(int argc, char const *argv[])
 	vs_log_set_level(VS_LOG_LEVEL_MAX);
 	vs_log_set_path( "../log/");
 
-#if 1
+#if 0
 	vs_daemon();
+#else 
+	vs_log_set_path_for_printf();
 #endif // 
 
 	
