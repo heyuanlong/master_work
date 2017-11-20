@@ -5,10 +5,10 @@
 #include "vs_process_cycle.h"
 #include "vs_net_channel.h"
 
-volatile int             vs_process_slot;
-volatile int             vs_last_process;
-volatile vs_process_t    vs_processes[VS_MAX_PROCESSES];
-volatile int             vs_channel;
+ int             vs_process_slot;
+ int             vs_last_process;
+ vs_process_t    vs_processes[VS_MAX_PROCESSES];
+ int             vs_channel;
 
 
 int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
@@ -42,7 +42,9 @@ int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
         vs_log_sys_error("fork fail:%s",strerror(errno));
         return VS_ERROR;
     case 0:
-        close(vs_processes[i].channel[0]);
+		if (i == vs_last_process) {
+			vs_last_process++;
+		}
         proc(cycle, data );
         break;
     default:
@@ -50,6 +52,7 @@ int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
     }
     
     close(vs_processes[i].channel[1]);
+	vs_processes[i].channel[1] = -1;
     vs_processes[i].index = i;
     vs_processes[i].pid = pid;
     vs_processes[i].status = 0;

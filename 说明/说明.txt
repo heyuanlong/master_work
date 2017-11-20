@@ -34,7 +34,7 @@ send buf				1
 回调到busi 				1
 超时event 				1
 add wev					1
-
+关闭channel
 
 vs——sln				1
 整理 					

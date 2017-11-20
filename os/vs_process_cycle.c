@@ -102,6 +102,7 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 {
 	vs_conn_t          		*c;
 	vs_event_t 				*rev;
+	int						i;
 
 	//cpuset_setaffinity
 	if(vs_event_process_init(cycle) != VS_OK){
@@ -111,6 +112,14 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 
 	vs_net_add_listen_event(cycle->tcp_listener->fd);
 	vs_net_add_channel_event(vs_channel);
+
+	for ( i = 0; i < vs_last_process; i++)
+	{
+		if (vs_processes[i].channel[0] != -1) {  //按理说，这里不用加条件判断。
+			close(vs_processes[i].channel[0]);
+			vs_processes[i].channel[0] = -1;
+		}
+	}
 
 	return VS_OK;
 }

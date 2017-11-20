@@ -125,6 +125,8 @@ static void vs_process_get_status()
 				vs_processes[i].pid = -1;
                 vs_processes[i].status = status;
                 vs_processes[i].exited = 1;
+				close(vs_processes[i].channel[0]);
+				vs_processes[i].channel[0] = -1;
                 break;
             }
         }
