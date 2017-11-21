@@ -29,7 +29,7 @@
 
 #define TCP_IP							"0.0.0.0"
 #define TCP_PORT						6000
-
+#define UDP_PORT						6000
 
 typedef struct vs_conn_send_chain_s vs_conn_send_chain_t;
 struct vs_conn_send_chain_s
@@ -45,6 +45,8 @@ struct vs_conn_s
 {
 	int			            fd;
 	struct sockaddr_in		saddr;
+	struct sockaddr_in		recv_addr;
+
 	void 					*recv_data;
 	int 					recv_pre_size;
     int 					recv_size;
@@ -69,7 +71,7 @@ struct vs_conn_s
 	void                    *rev; 				//vs_event_t*
 	void                    *wev; 				//vs_event_t*
 
-
+	void					*listening;
 };
 
 int 				vs_conn_cycle_init(vs_cycle_t* cycle);

@@ -1,0 +1,88 @@
+﻿Build started 2017/11/21 22:03:04.
+     1>Project "C:\Users\heyuanlong\Desktop\github\master_work\vs_project\vs_project\vs_project.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         G:\vs\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TC /errorReport:prompt ..\..\busi\busi_test\vs_busi_test.c ..\..\busi\vs_busi.c ..\..\conn\vs_conn.c ..\..\conn\vs_conn_accept.c ..\..\conn\vs_conn_connect.c ..\..\conn\vs_conn_listen.c ..\..\conn\vs_conn_recv.c ..\..\conn\vs_conn_send.c ..\..\core\vs_config.c ..\..\core\vs_log.c ..\..\core\vs_rbtree.c ..\..\core\vs_time.c ..\..\event\vs_event.c ..\..\event\vs_event_timer.c ..\..\main.c ..\..\net\vs_net.c ..\..\net\vs_net_channel.c ..\..\net\vs_socket.c ..\..\os\vs_daemon.c ..\..\os\vs_init_cycle.c ..\..\os\vs_process.c ..\..\os\vs_process_cycle.c ..\..\os\vs_signal.c
+         vs_signal.c
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_signal.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_signal.h(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_process_cycle.c
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_process_cycle.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_process_cycle.h(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_process.c
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_process.h(7): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_init_cycle.c
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_init_cycle.h(6): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_daemon.c
+     1>c:\users\heyuanlong\desktop\github\master_work\os\vs_daemon.c(2): fatal error C1083: Cannot open include file: 'vs_core.h': No such file or directory
+         vs_socket.c
+     1>c:\users\heyuanlong\desktop\github\master_work\net\vs_socket.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_net_channel.c
+     1>c:\users\heyuanlong\desktop\github\master_work\net\vs_net_channel.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_net.c
+     1>c:\users\heyuanlong\desktop\github\master_work\net\vs_net.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\net\vs_net.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         main.c
+     1>c:\users\heyuanlong\desktop\github\master_work\main.c(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_event_timer.c
+     1>c:\users\heyuanlong\desktop\github\master_work\event\vs_event_timer.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_event.c
+     1>c:\users\heyuanlong\desktop\github\master_work\event\vs_event.c(1): fatal error C1083: Cannot open include file: 'sys/epoll.h': No such file or directory
+         vs_time.c
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_time.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_time.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_time.h(8): fatal error C1083: Cannot open include file: 'vs_core.h': No such file or directory
+         vs_rbtree.c
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_rbtree.c(1): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_log.c
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(26): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(27): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(28): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(29): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(32): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(33): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(34): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(35): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.c(9): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_config.c
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_config.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(26): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(27): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(28): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(29): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(32): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(33): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(34): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_log.h(35): error C2010: '.': unexpected in macro formal parameter list
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_config.c(66): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_config.c(44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_config.c(89): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\heyuanlong\desktop\github\master_work\core\vs_config.c(91): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+         vs_conn_send.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_send.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_conn_recv.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_recv.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_recv.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_conn_listen.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_listen.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_conn_connect.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_connect.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_conn_accept.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn_accept.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         Generating Code...
+         Compiling...
+         vs_conn.c
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>c:\users\heyuanlong\desktop\github\master_work\conn\vs_conn.h(4): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+         vs_busi.c
+     1>c:\users\heyuanlong\desktop\github\master_work\busi\vs_busi.h(4): fatal error C1083: Cannot open include file: 'vs_conn.h': No such file or directory
+         vs_busi_test.c
+     1>c:\users\heyuanlong\desktop\github\master_work\busi\busi_test\vs_busi_test.h(5): fatal error C1083: Cannot open include file: 'vs_busi.h': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Users\heyuanlong\Desktop\github\master_work\vs_project\vs_project\vs_project.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:04.85

@@ -11,8 +11,12 @@
 int vs_conn_cycle_init(vs_cycle_t* cycle)
 {
 	
-	if(vs_tcp_listen_create(&cycle->tcp_listener) != VS_OK){
+	if(vs_tcp_listen_create(cycle, TCP_IP, TCP_PORT, vs_net_accept_handle) != VS_OK){
 		vs_log_sys_error("vs_tcp_listen_create fail");
+		return VS_ERROR;
+	}
+	if (vs_udp_listen_create(cycle, TCP_IP, UDP_PORT, vs_net_accept_udp_handle) != VS_OK) {
+		vs_log_sys_error("vs_udp_listen_create fail");
 		return VS_ERROR;
 	}
 

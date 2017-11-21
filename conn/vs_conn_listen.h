@@ -10,7 +10,7 @@
 #include "vs_socket.h"
 #include "vs_event.h"
 
-int vs_tcp_listen_create(vs_cycle_t* cycle);
-int vs_udp_listen_create(vs_cycle_t* cycle);
+int vs_tcp_listen_create(vs_cycle_t* cycle ,const char *ip,const int port, vs_listen_handle_ptr handle);
+int vs_udp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_listen_handle_ptr handle);
 
 #endif

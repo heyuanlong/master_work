@@ -8,9 +8,11 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 	struct sockaddr_in  	addr_in;
 	int 					size;
 
-	vs_conn_t 				*c;
-	vs_event_t 				*rev, *wev;
+	vs_conn_t 				*c,*new_c;
+	vs_listen_t				*ls;
 
+	c = ev->data;
+	ls = c->listening;
 	do{
 		fd = accept( ev->fd, ( struct sockaddr* )&addr_in, ( socklen_t* ) &size );
 		if( fd < 0 ){
@@ -27,25 +29,42 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 		vs_nonblocking(fd);
 		vs_socket_nodelay( fd );
 		
-		c = vs_conn_get( fd );
-		if( NULL == c ){
+		new_c = vs_conn_get( fd );
+		if( NULL == new_c){
 			close( fd );
 			vs_log_sys_error("accept vs_conn_get error");
 			return VS_ERROR;
 		}
-		c->saddr = addr_in;
-		vs_event_timer_add(c,TIMEOUTS);
-		
-		rev = c->rev;
-		wev = c->wev;
-		rev->handle = vs_net_read_handle;
-		wev->handle = vs_net_send_handle;
-		//rev->handle( rev );
-		if (vs_event_add_conn( c , VS_EVENT_TYPE_READ) < 0){
-			vs_log_sys_error("vs_event_add_conn fail");
+		new_c->saddr = addr_in;
+
+		if (ls->handle(new_c) < 0){
+			vs_log_sys_error("vs_net_accept_handle fail");
 			return VS_ERROR;
 		}
 		
-
 	}while(1);
+}
+
+int vs_conn_tcp_accept_udp(vs_event_t* ev)
+{
+	struct sockaddr_in  	addr_in;
+	int 					flag;
+	int						len;
+
+	vs_conn_t 				*c;
+	vs_listen_t				*ls;
+
+	c = ev->data;
+	ls = c->listening;
+
+	while (1) {
+		len = sizeof(struct sockaddr_in);
+		flag = recvfrom(c->fd, c->recv_data, c->recv_back_size, 0, (struct sockaddr*)&addr_in, &len);
+		if (flag <= 0) {
+			break;
+		}
+
+		c->recv_addr = addr_in;
+		ls->handle(c);
+	}
 }

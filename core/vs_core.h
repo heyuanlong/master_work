@@ -18,16 +18,20 @@
 
 typedef  unsigned long long			ullong_t;
 
-
-typedef struct 
-{
+typedef int(*vs_listen_handle_ptr)(void  *conn);
+typedef struct vs_listen_s vs_listen_t; 
+struct vs_listen_s{
 	int			              fd;
 	int                       port;
 	unsigned long long        ip;
-}vs_listen_t;
+	int						  type;
+	vs_listen_handle_ptr	  handle;
+	vs_listen_t				  *next;
+
+};
 
 typedef struct{
-	vs_listen_t* 	tcp_listener;
+	vs_listen_t* 	listener;
 }vs_cycle_t;
 
 typedef struct{

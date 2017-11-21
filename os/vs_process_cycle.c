@@ -102,6 +102,7 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 {
 	vs_conn_t          		*c;
 	vs_event_t 				*rev;
+	vs_listen_t				**plisten;
 	int						i;
 
 	//cpuset_setaffinity
@@ -110,7 +111,19 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 		return VS_ERROR;
 	}
 
-	vs_net_add_listen_event(cycle->tcp_listener->fd);
+	plisten = &cycle->listener;
+	while (*plisten != NULL) {
+		if ((*plisten)->type == SOCK_STREAM) {
+			vs_net_add_tcp_listen_event( (*plisten)->fd , *plisten);
+		}
+		if ((*plisten)->type == SOCK_DGRAM) {
+			vs_net_add_udp_listen_event( (*plisten)->fd, *plisten);
+		}
+		plisten = &(*plisten)->next;
+	}
+
+	
+
 	vs_net_add_channel_event(vs_channel);
 
 	for ( i = 0; i < vs_last_process; i++)

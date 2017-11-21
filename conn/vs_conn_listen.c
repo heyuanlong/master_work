@@ -1,8 +1,9 @@
 #include "vs_conn_listen.h"
 #include "vs_net.h"
 
+static void vs_conn_cycle_add_listen(vs_cycle_t* cycle, vs_listen_t *listener);
 
-int vs_tcp_listen_create(vs_cycle_t* cycle)
+int vs_tcp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_listen_handle_ptr handle)
 {
 	int 					flag;
 	int 					fd;
@@ -42,15 +43,16 @@ int vs_tcp_listen_create(vs_cycle_t* cycle)
 
 	listener = malloc(sizeof(vs_listen_t));
 	listener->fd = fd;
+	listener->type = SOCK_STREAM;
 	listener->ip = inet_addr( ip );
 	listener->port = port;
-	cycle->tcp_listener = listener;
+	listener->handle = handle;
 
-
+	vs_conn_cycle_add_listen(cycle, listener);
 	return VS_OK;
 }
 
-int vs_udp_listen_create(vs_cycle_t* cycle)
+int vs_udp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_listen_handle_ptr handle)
 {
 	int 					flag;
 	int 					fd;
@@ -84,10 +86,25 @@ int vs_udp_listen_create(vs_cycle_t* cycle)
 
 	listener = malloc(sizeof(vs_listen_t));
 	listener->fd = fd;
+	listener->type = SOCK_DGRAM;
 	listener->ip = inet_addr(ip);
 	listener->port = port;
-	cycle->tcp_listener = listener;
+	listener->handle = handle;
 
+	vs_conn_cycle_add_listen(cycle, listener);
 
 	return VS_OK;
+}
+static void vs_conn_cycle_add_listen(vs_cycle_t* cycle, vs_listen_t *listener)
+{
+	vs_listen_t  **plisten;
+
+	listener->next = NULL;
+	plisten = &cycle->listener;
+	while (*plisten != NULL) {
+		plisten = &(*plisten)->next;
+	}
+	*plisten = listener;
+
+	return;
 }

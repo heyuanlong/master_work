@@ -11,5 +11,6 @@
 #include "vs_event.h"
 
 int vs_conn_tcp_accept( vs_event_t* ev );
+int vs_conn_tcp_accept_udp(vs_event_t* ev);
 
 #endif

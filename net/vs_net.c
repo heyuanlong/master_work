@@ -2,11 +2,12 @@
 #include "vs_net.h"
 #include "vs_conn_recv.h"
 #include "vs_conn_send.h"
+#include "vs_conn_accept.h"
 #include "vs_conn_connect.h"
 #include "vs_interface.h"
 #include "vs_log.h"
 #include "vs_event_timer.h"
-
+#include "vs_event.h"
 
 
 int HEADER_SIZE = sizeof(vs_header_t);
@@ -27,25 +28,70 @@ int vs_net_module_init(vs_cycle_t* cycle)
 	return VS_OK;
 }
 
-int vs_net_add_listen_event(int fd)
+int vs_net_add_tcp_listen_event(int fd, void *listening)
 {
 	vs_conn_t    *c;
 	vs_event_t	 *rev;
 
 	c = vs_conn_get(fd);
+	c->listening = listening;
 	rev = c->rev;
-	rev->handle = vs_net_accept_handle;
+	rev->handle = vs_net_listen_handle;
+	vs_event_add_conn(c, VS_EVENT_TYPE_READ);
+
+	return VS_OK;
+}
+int vs_net_add_udp_listen_event(int fd, void *listening)
+{
+	vs_conn_t    *c;
+	vs_event_t	 *rev;
+
+	c = vs_conn_get(fd);
+	c->listening = listening;
+	rev = c->rev;
+	rev->handle = vs_net_listen_udp_handle;
 	vs_event_add_conn(c, VS_EVENT_TYPE_READ);
 
 	return VS_OK;
 }
 //--------------------------------------------
-int vs_net_accept_handle( vs_event_t* ev )
+int vs_net_listen_handle( vs_event_t* ev )
 {	
-	vs_conn_t*		c;
-	c = ev->data;
 	vs_conn_tcp_accept(ev);
 }
+int vs_net_accept_handle(void *conn)
+{
+	vs_conn_t				 *c;
+	vs_event_t 				*rev, *wev;
+
+	c = conn;
+	vs_event_timer_add(c, TIMEOUTS);
+
+	rev = c->rev;
+	wev = c->wev;
+	rev->handle = vs_net_read_handle;
+	wev->handle = vs_net_send_handle;
+	//rev->handle( rev );
+	if (vs_event_add_conn(c, VS_EVENT_TYPE_READ) < 0) {
+		vs_log_sys_error("vs_event_add_conn fail");
+		return VS_ERROR;
+	}
+	return VS_OK;
+}
+int vs_net_listen_udp_handle(vs_event_t* ev)
+{
+	vs_conn_tcp_accept_udp(ev);
+}
+int vs_net_accept_udp_handle(void *conn)
+{
+	vs_conn_t				 *c;
+
+	c = conn;
+
+	ko_busi_handle(c->busi);
+	return VS_OK;
+}
+
 int vs_net_read_handle( vs_event_t* ev )
 {
 	vs_conn_t*		c;
