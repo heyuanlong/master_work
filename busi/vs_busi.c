@@ -6,6 +6,13 @@
 
 #include <string.h>
 
+
+int ko_busi_init()
+{
+	//vs_net_tcp_connect("127.0.0.1", 6001);
+
+	return VS_OK;
+}
 int ko_busi_handle( vs_busi_t* busi )
 {
 	void 			*data;

@@ -11,5 +11,6 @@
 #include "vs_event.h"
 
 int vs_tcp_listen_create(vs_cycle_t* cycle);
+int vs_udp_listen_create(vs_cycle_t* cycle);
 
 #endif

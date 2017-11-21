@@ -5,6 +5,9 @@
 #include "vs_core.h"
 #include "vs_rbtree.h"
 
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
 
 #define VS_CONN_RECV_OK				     0
 #define VS_CONN_RECV_ERROR				 -1
@@ -40,8 +43,8 @@ struct vs_conn_send_chain_s
 typedef struct vs_conn_s vs_conn_t;
 struct vs_conn_s
 {
-	int			              fd;
-
+	int			            fd;
+	struct sockaddr_in		saddr;
 	void 					*recv_data;
 	int 					recv_pre_size;
     int 					recv_size;

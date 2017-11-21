@@ -2,9 +2,9 @@
 #include "vs_net.h"
 #include "vs_conn_recv.h"
 #include "vs_conn_send.h"
+#include "vs_conn_connect.h"
 #include "vs_interface.h"
 #include "vs_log.h"
-#include "vs_busi.h"
 #include "vs_event_timer.h"
 
 
@@ -234,4 +234,15 @@ int vs_net_send_tcp(vs_conn_t *c, void * buf, int size)
 	return VS_OK;
 }
 
+vs_busi_t* vs_net_tcp_connect(const char *ip, const int port)
+{
+	vs_conn_t *c;
+	c = vs_conn_tcp_connect(ip, port);
+	if (c) {
+		vs_net_send_tcp(c, "kkkkkkkk", strlen("kkkkkkkk"));
+		vs_log_sys_debug("vs_net_send_tcp-------");
+		return c->busi;
+	}
+	return NULL;
+}
 

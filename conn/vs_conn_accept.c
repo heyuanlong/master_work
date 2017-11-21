@@ -30,8 +30,10 @@ int vs_conn_tcp_accept( vs_event_t* ev )
 		c = vs_conn_get( fd );
 		if( NULL == c ){
 			close( fd );
+			vs_log_sys_error("accept vs_conn_get error");
 			return VS_ERROR;
 		}
+		c->saddr = addr_in;
 		vs_event_timer_add(c,TIMEOUTS);
 		
 		rev = c->rev;

@@ -6,6 +6,7 @@
 #include "vs_event.h"
 #include "vs_event_timer.h"
 #include "vs_core.h"
+#include "vs_busi.h"
 
 int vs_net_module_init(vs_cycle_t* cycle);
 int vs_net_add_listen_event(int fd);
@@ -23,7 +24,7 @@ int vs_net_timeout_handle( vs_event_timer_t* ev );
 
 int vs_net_set_conn_close(vs_conn_t *c);
 int vs_net_send_tcp(vs_conn_t *c,void * buf,int size);
-
+vs_busi_t* vs_net_tcp_connect(const char *ip, const int port);
 
 
 #endif

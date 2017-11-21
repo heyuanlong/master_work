@@ -117,6 +117,7 @@
     <ClCompile Include="..\..\clientTest\client.cpp" />
     <ClCompile Include="..\..\conn\vs_conn.c" />
     <ClCompile Include="..\..\conn\vs_conn_accept.c" />
+    <ClCompile Include="..\..\conn\vs_conn_connect.c" />
     <ClCompile Include="..\..\conn\vs_conn_listen.c" />
     <ClCompile Include="..\..\conn\vs_conn_recv.c" />
     <ClCompile Include="..\..\conn\vs_conn_send.c" />
@@ -143,6 +144,7 @@
     <ClInclude Include="..\..\clientTest\client.h" />
     <ClInclude Include="..\..\conn\vs_conn.h" />
     <ClInclude Include="..\..\conn\vs_conn_accept.h" />
+    <ClInclude Include="..\..\conn\vs_conn_connect.h" />
     <ClInclude Include="..\..\conn\vs_conn_listen.h" />
     <ClInclude Include="..\..\conn\vs_conn_recv.h" />
     <ClInclude Include="..\..\conn\vs_conn_send.h" />

@@ -4,7 +4,7 @@
 #include "vs_conn.h"
 #include "vs_event.h"
 #include "vs_net.h"
-
+#include "vs_busi.h"
 
 int process_num = PROCESS_NUMS;
 
@@ -119,6 +119,11 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 			close(vs_processes[i].channel[0]);
 			vs_processes[i].channel[0] = -1;
 		}
+	}
+
+	if (ko_busi_init() != VS_OK) {
+		vs_log_sys_error("ko_busi_init fail");
+		return VS_ERROR;
 	}
 
 	return VS_OK;

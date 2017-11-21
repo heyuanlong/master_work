@@ -37,9 +37,9 @@ add wev					1
 关闭channel				1
 
 vs——sln				1
-add mysql				
-add redis				
-add	mongo				
+add mysql				1
+add redis				1	
+
 add tcp发送
 add udp接收
 add udp发送
