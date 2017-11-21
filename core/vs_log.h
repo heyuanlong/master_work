@@ -8,7 +8,7 @@
 
 #define VS_LOG_BUFFER_DEFAULT			2048
 #define VS_LOG_SIZE_LIMIT       		104857600			//100 * 1024 * 1024static int vs_log_error_fd = 0;
-#define MAX_TIME_STR_LEN    			30
+#define MAX_TIME_STR_LEN    			50
 typedef unsigned long uint32;
 
 enum {

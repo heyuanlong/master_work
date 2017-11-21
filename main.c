@@ -10,6 +10,7 @@
 #include "vs_log.h"
 #include "vs_signal.h"
 #include "vs_daemon.h"
+#include "vs_init_cycle.h"
 
 int main(int argc, char const *argv[])
 {
@@ -29,9 +30,6 @@ int main(int argc, char const *argv[])
 	vs_log_set_path_for_printf();
 #endif // 
 
-	
-	vs_init_signals();
-	vs_event_timer_init();
 
 	if (vs_init_cycle(cycle) != VS_OK){
 		vs_log_sys_error("vs_init_cycle fail\n");

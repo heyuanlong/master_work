@@ -53,9 +53,11 @@ int vs_spawn_process(vs_cycle_t *cycle,vs_spawn_proc_pt proc, void *data){
     
     close(vs_processes[i].channel[1]);
 	vs_processes[i].channel[1] = -1;
+
     vs_processes[i].index = i;
     vs_processes[i].pid = pid;
     vs_processes[i].status = 0;
+	vs_processes[i].exited = 0;
     vs_processes[i].proc = proc;
     vs_processes[i].data = data;
 

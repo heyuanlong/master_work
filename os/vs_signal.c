@@ -66,6 +66,7 @@ void vs_signal_handler(int signo)
 			vs_all_quit = 1;
 			vs_net_tell_child_quit();
 			sleep(1);	//这句要加上，否则一些子进程的channel socket收到EPOLLERR|EPOLLHUP
+			sleep(1);
             break;
         case SIGINT:		//ctrl + c
 			vs_log_sys_info("GET SIGINT");
@@ -122,9 +123,11 @@ static void vs_process_get_status()
         one = 1;
         for (i = 0; i < vs_last_process; i++) {
             if (vs_processes[i].pid == pid) {
+
 				vs_processes[i].pid = -1;
                 vs_processes[i].status = status;
                 vs_processes[i].exited = 1;
+
 				close(vs_processes[i].channel[0]);
 				vs_processes[i].channel[0] = -1;
                 break;

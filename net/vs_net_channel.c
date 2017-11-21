@@ -61,6 +61,7 @@ int vs_net_read_channel_handle( vs_event_t* ev )
 	return VS_OK;
 }
 
+//-----------------------------------------------------------------------
 int vs_net_tell_child_quit()
 {
 	int i = 0;

@@ -6,7 +6,7 @@ static unsigned char cached_err_log_mtime[sizeof("1970/09/28 12:00:00.000")];
 static unsigned char cached_err_log_time [sizeof("1970/09/28 12:00:00")];
 
 static unsigned char cached_time_format_yyyy_MM_dd[sizeof("1970-09-28")];
-static unsigned char cached_time_format_yyyy_MM_dd_hh_mm_ss[sizeof("1970-09-28 12:00:00")];
+static unsigned char cached_time_format_yyyy_MM_dd_hh_mm_ss[sizeof("1970-09-28.12_00_00.000000")];
 
 
 volatile vs_str_t	vs_cached_err_log_utime;
@@ -26,7 +26,7 @@ void vs_time_init()
 	vs_cached_err_log_mtime.size = sizeof("1970/09/28 12:00:00.000") - 1;
     vs_cached_err_log_time.size = sizeof("1970/09/28 12:00:00") - 1;
 	vs_cached_time_format_yyyy_MM_dd.size = sizeof("1970-09-28") - 1;
-    vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.size = sizeof("1970-09-28 12:00:00") - 1;
+    vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.size = sizeof("1970-09-28.12_00_00.000000") - 1;
 	vs_time_update();
 }
 
@@ -86,12 +86,12 @@ void vs_time_update()
 	}
 	{
 		p = cached_time_format_yyyy_MM_dd_hh_mm_ss;
-		sprintf(p, "%4d-%02d-%02d %02d:%02d:%02d",
+		sprintf(p, "%4d-%02d-%02d.%02d_%02d_%02d.%06d",
             tm.tm_year, tm.tm_mon,
             tm.tm_mday, tm.tm_hour,
-            tm.tm_min, tm.tm_sec);
+            tm.tm_min, tm.tm_sec,
+			vs_current_usec);
         vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.data = p;
 	}
-
 	return;
 }

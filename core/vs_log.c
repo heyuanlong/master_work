@@ -12,8 +12,7 @@
 #include <sys/time.h>       //gettimeofday
 #include <fcntl.h>
 
-
-
+#include "vs_time.h"
 
 static int vs_log_sys_fd = 0;
 static int vs_log_app_fd = 0;
@@ -287,22 +286,23 @@ int vs_log_app_real_error(  const char* format, ... )
 
 char* get_time_str(int is_write)
 {
-    time_t now = {0};
-    struct tm *ptime = NULL;
-    time(&now);
-    ptime = localtime(&now);
-    memset(m_time_str, 0, sizeof(m_time_str));
+#if 0
+		time_t now = {0};
+		struct tm *ptime = NULL;
+		time(&now);
+		ptime = localtime(&now);
+		memset(m_time_str, 0, sizeof(m_time_str));
 
-    uint32 milisec = 0;
-#ifdef WIN32
-    SYSTEMTIME wtm;
-    GetLocalTime(&wtm);
-    milisec = wtm.wMilliseconds;
-#else
-    struct timeval tv = {0};
-    gettimeofday(&tv, 0);
-    milisec = tv.tv_usec/1000;
-#endif
+		uint32 milisec = 0;
+	#ifdef WIN32
+		SYSTEMTIME wtm;
+		GetLocalTime(&wtm);
+		milisec = wtm.wMilliseconds;
+	#else
+		struct timeval tv = {0};
+		gettimeofday(&tv, 0);
+		milisec = tv.tv_usec/1000;
+	#endif
 
     if (is_write)
     {//用来写日志
@@ -316,7 +316,19 @@ char* get_time_str(int is_write)
             (1900+ptime->tm_year), (1+ptime->tm_mon), ptime->tm_mday,
             ptime->tm_hour, ptime->tm_min, ptime->tm_sec, milisec);
     }
+#else 
+	if (is_write)
+	{//用来写日志
+		memcpy(m_time_str, vs_cached_err_log_utime.data, vs_cached_err_log_utime.size);
+		m_time_str[vs_cached_err_log_utime.size] = '\0';		//可以不写这句
+	}
+	else
+	{//用来重命名文件
+		memcpy(m_time_str, vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.data, vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.size);
+		m_time_str[vs_cached_time_format_yyyy_MM_dd_hh_mm_ss.size] = '\0';
+	}
 
+#endif
     return m_time_str;
 }
 
