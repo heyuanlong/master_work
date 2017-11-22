@@ -43,6 +43,18 @@ int ko_busi_handle( vs_busi_t* busi )
 	}
 	return VS_OK;
 }
+int ko_busi_udp_handle(vs_busi_t* busi)
+{
+	char 			*data;
+
+
+	data = busi->c->recv_data;
+	data[busi->c->recv_size] = '\0';
+
+	vs_log_info("udp msg:%s", data);
+
+	return VS_OK;
+}
 
 
 int ko_busi_conn_close_handle( int fd )

@@ -10,6 +10,7 @@ typedef struct {
 
 int ko_busi_init();
 int ko_busi_handle( vs_busi_t* busi );
+int ko_busi_udp_handle(vs_busi_t* busi);
 int ko_busi_conn_close_handle( int fd );
 int ko_busi_conn_timeout_handle( vs_busi_t* busi );
 

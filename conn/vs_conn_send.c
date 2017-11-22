@@ -30,16 +30,16 @@ int vs_conn_send(int fd, void *buf, int size)
 	return send_len;
 }
 
-int vs_conn_udp_send_simple(int fd, void *buf, int size, const char *ip, const int port)
+int vs_conn_send_udp_simple(int fd, void *buf, int size, const char *ip, const int port)
 {
 	struct sockaddr_in  addr;
 	int					flag;
 	int					nlen;
-	int					nsend;
+	int					res;
 
 
 	nlen = size;
-	nsend = 0;
+	res = 0;
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
@@ -47,19 +47,19 @@ int vs_conn_udp_send_simple(int fd, void *buf, int size, const char *ip, const i
 
 	while (nlen > 0)
 	{	
-		nsend = sendto(fd, buf, nlen, 0, (struct sockaddr*)&addr, sizeof(addr));
-		if (nsend <= 0)
+		res = sendto(fd, buf, nlen, 0, (struct sockaddr*)&addr, sizeof(addr));
+		if (res <= 0)
 		{
 			if (errno == EINTR) {//被中断了
-				nsend = 0;//这里可以改为continue
+				res = 0;//这里可以改为continue
 			}
 			else {
 				vs_log_sys_error("vs_conn_udp_send_simple error:%d,%s", errno, strerror(errno));
 				break;
 			}
 		}
-		nlen -= nsend;
-		buf += nsend;
+		nlen -= res;
+		buf += res;
 	}
-	return VS_OK;
+	return size - nlen;
 }

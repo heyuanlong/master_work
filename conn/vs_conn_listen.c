@@ -9,12 +9,6 @@ int vs_tcp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_l
 	int 					fd;
 	struct sockaddr_in    	addr;
 	vs_listen_t          	*listener;
-	int 					port;
-	char* 					ip;
-
-	ip = TCP_IP;	
-	port = TCP_PORT;
-
 
 	fd = socket( AF_INET, SOCK_STREAM, 0 );
 	if( fd<= 0 ){
@@ -58,12 +52,6 @@ int vs_udp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_l
 	int 					fd;
 	struct sockaddr_in    	addr;
 	vs_listen_t          	*listener;
-	int 					port;
-	char* 					ip;
-
-	ip = TCP_IP;
-	port = TCP_PORT+1;
-
 
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (fd <= 0) {

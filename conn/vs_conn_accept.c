@@ -65,6 +65,7 @@ int vs_conn_tcp_accept_udp(vs_event_t* ev)
 		}
 
 		c->recv_addr = addr_in;
+		c->recv_size = flag;
 		ls->handle(c);
 	}
 }

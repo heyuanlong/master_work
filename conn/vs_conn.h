@@ -29,7 +29,7 @@
 
 #define TCP_IP							"0.0.0.0"
 #define TCP_PORT						6000
-#define UDP_PORT						6000
+#define UDP_PORT						6001
 
 typedef struct vs_conn_send_chain_s vs_conn_send_chain_t;
 struct vs_conn_send_chain_s

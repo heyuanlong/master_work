@@ -40,9 +40,9 @@ vs——sln				1
 add mysql				1
 add redis				1	
 
-add tcp发送
-add udp接收
-add udp发送
+add tcp连接				1
+add udp接收				1
+add udp发送				1
 
 整理 					
 优化 					

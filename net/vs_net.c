@@ -88,7 +88,9 @@ int vs_net_accept_udp_handle(void *conn)
 
 	c = conn;
 
-	ko_busi_handle(c->busi);
+	//在这里判断一个udp包是否合理，或者在busi层判断。
+
+	ko_busi_udp_handle(c->busi);
 	return VS_OK;
 }
 
@@ -279,14 +281,15 @@ int vs_net_send_tcp(vs_conn_t *c, void * buf, int size)
 	}
 	return VS_OK;
 }
-
+int	vs_net_send_udp_simple(int fd, void *buf, int size, const char *ip, const int port)
+{
+	return vs_conn_send_udp_simple( fd, buf, size, ip, port);
+}
 vs_busi_t* vs_net_tcp_connect(const char *ip, const int port)
 {
 	vs_conn_t *c;
 	c = vs_conn_tcp_connect(ip, port);
 	if (c) {
-		vs_net_send_tcp(c, "kkkkkkkk", strlen("kkkkkkkk"));
-		vs_log_sys_debug("vs_net_send_tcp-------");
 		return c->busi;
 	}
 	return NULL;
