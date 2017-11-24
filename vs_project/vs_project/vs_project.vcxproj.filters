@@ -97,6 +97,9 @@
     <ClCompile Include="..\..\conn\vs_conn_connect.c">
       <Filter>conn</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\os\vs_mem.c">
+      <Filter>os</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\busi\busi_test\vs_busi_test.h">
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="..\..\conn\vs_conn_connect.h">
       <Filter>conn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\os\vs_mem.h">
+      <Filter>os</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
