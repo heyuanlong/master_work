@@ -34,8 +34,7 @@ int vs_tcp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_l
 		return VS_ERROR;
 	}
 
-
-	listener = malloc(sizeof(vs_listen_t));
+	listener = vs_palloc(cycle->pool,sizeof(vs_listen_t));
 	listener->fd = fd;
 	listener->type = SOCK_STREAM;
 	listener->ip = inet_addr( ip );
@@ -71,8 +70,7 @@ int vs_udp_listen_create(vs_cycle_t* cycle, const char *ip, const int port, vs_l
 		return VS_ERROR;
 	}
 
-
-	listener = malloc(sizeof(vs_listen_t));
+	listener = vs_palloc(cycle->pool, sizeof(vs_listen_t));
 	listener->fd = fd;
 	listener->type = SOCK_DGRAM;
 	listener->ip = inet_addr(ip);

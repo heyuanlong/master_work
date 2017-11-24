@@ -21,7 +21,7 @@ int vs_event_process_init(vs_cycle_t *cycle)
 	vs_event_t*				rev;
 
 	nevents = EPOLL_SIZE;
-	event_list = malloc(sizeof(struct epoll_event) * nevents );
+	event_list = vs_palloc(cycle->pool,sizeof(struct epoll_event) * nevents);
 	ep = epoll_create(nevents);
 	if(ep == -1){
 		vs_log_sys_error("epoll_create  fail:%s",strerror(errno) );

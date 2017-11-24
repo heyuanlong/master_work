@@ -29,16 +29,29 @@ vs_conn_t* 			vs_conn_get( int fd )
 	vs_event_t 				*rev, *wev;
 	vs_event_timer_t 		*tev;
 	vs_busi_t 				*busi;
+	vs_pool_t				*pool;
 
-	c = malloc(sizeof(vs_conn_t));
+	c = vs_alloc(sizeof(vs_conn_t));
+	if (!c) {
+		vs_log_sys_error("vs_alloc fail");
+	}
 	c->fd = fd;
 	c->busi =NULL;
+
+	pool = vs_create_pool(VS_MAX_ALLOC_FROM_POOL);
+	if (pool == NULL) {
+		vs_free(c);
+		vs_log_sys_error("vs_create_pool fail");
+		return NULL;
+	}
+	c->pool = pool;
+
 
 	c->client_error = 0;
 	c->client_shutdown = 0;
 	c->server_shutdown = 0;
 
-	rev = malloc(sizeof(vs_event_t));
+	rev = vs_palloc(c->pool,sizeof(vs_event_t));
 	rev->fd = fd;
 	rev->data = c;
 	rev->active = 0;
@@ -46,7 +59,7 @@ vs_conn_t* 			vs_conn_get( int fd )
 	rev->type = VS_EVENT_TYPE_READ;
 	c->rev =rev;
 
-	wev = malloc(sizeof(vs_event_t));
+	wev = vs_palloc(c->pool, sizeof(vs_event_t));
 	wev->fd = fd;
 	wev->data = c;
 	wev->active = 0;
@@ -54,15 +67,14 @@ vs_conn_t* 			vs_conn_get( int fd )
 	wev->type = VS_EVENT_TYPE_WRITE;
 	c->wev =wev;
 
-
-	tev = malloc(sizeof(vs_event_timer_t));
+	tev = vs_palloc(c->pool, sizeof(vs_event_timer_t));
 	tev->data = c;
 	tev->handle = vs_net_timeout_handle;
 	c->tev =tev;
 	c->is_set_timeout = 0;
 	c->timeout = 0;
 
-	c->recv_data  = malloc(VS_CONN_RECV_BUF_SIZE);
+	c->recv_data = vs_palloc(c->pool, VS_CONN_RECV_BUF_SIZE);
 	c->recv_pre_size = 0 ;
     c->recv_size = 0;
 	c->recv_back_size = VS_CONN_RECV_BUF_SIZE;
@@ -72,28 +84,19 @@ vs_conn_t* 			vs_conn_get( int fd )
 	c->send_spare_chain = NULL;
 	c->send_spare_nums = 0;
 
-	busi = vs_busi_get(fd);
+	busi = vs_busi_get(c,fd);
 	busi->c = c;
 	c->busi =busi;
 	
 	
-	
-	
-
 	vs_log_sys_info("vs_conn_get :%d",fd);
 
 	return c;
 }
 int vs_conn_free( vs_conn_t *c )
 {
-	free(c->rev);
-	free(c->wev);
-	free(c->tev);
-	free(c->recv_data);
-
-	vs_busi_free(c->busi);
-	vs_conn_send_chain_free(c);
-	free(c);
+	vs_destroy_pool(c->pool);
+	vs_free(c);
 	return VS_OK;
 }
 
@@ -112,8 +115,8 @@ vs_conn_send_chain_t*  vs_conn_send_chain_get(vs_conn_t *c, void * buf,int size)
 		pch = &(*pch)->next;
 	}
 	if (*pch == NULL) {
-		chain = malloc(sizeof(vs_conn_send_chain_t));
-		chain->data = malloc(size);
+		chain = vs_palloc(c->pool,sizeof(vs_conn_send_chain_t));
+		chain->data = vs_palloc(c->pool, size);
 		chain->size = size;
 		chain->allsize = size;
 		chain->next = NULL;

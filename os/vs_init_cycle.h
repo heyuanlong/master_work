@@ -8,6 +8,8 @@
 
 #include "vs_core.h"
 
-int vs_init_cycle(vs_cycle_t *cycle);
+vs_cycle_t *	vs_cycle_create();
+int				vs_init_cycle(vs_cycle_t *cycle);
+
 
 #endif

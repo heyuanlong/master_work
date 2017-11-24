@@ -123,6 +123,7 @@
     <ClCompile Include="..\..\conn\vs_conn_send.c" />
     <ClCompile Include="..\..\core\vs_config.c" />
     <ClCompile Include="..\..\core\vs_log.c" />
+    <ClCompile Include="..\..\core\vs_mem.c" />
     <ClCompile Include="..\..\core\vs_rbtree.c" />
     <ClCompile Include="..\..\core\vs_time.c" />
     <ClCompile Include="..\..\event\vs_event.c" />
@@ -133,7 +134,6 @@
     <ClCompile Include="..\..\net\vs_socket.c" />
     <ClCompile Include="..\..\os\vs_daemon.c" />
     <ClCompile Include="..\..\os\vs_init_cycle.c" />
-    <ClCompile Include="..\..\os\vs_mem.c" />
     <ClCompile Include="..\..\os\vs_process.c" />
     <ClCompile Include="..\..\os\vs_process_cycle.c" />
     <ClCompile Include="..\..\os\vs_signal.c" />
@@ -152,6 +152,7 @@
     <ClInclude Include="..\..\core\vs_config.h" />
     <ClInclude Include="..\..\core\vs_core.h" />
     <ClInclude Include="..\..\core\vs_log.h" />
+    <ClInclude Include="..\..\core\vs_mem.h" />
     <ClInclude Include="..\..\core\vs_rbtree.h" />
     <ClInclude Include="..\..\core\vs_time.h" />
     <ClInclude Include="..\..\event\vs_event.h" />
@@ -161,7 +162,6 @@
     <ClInclude Include="..\..\net\vs_socket.h" />
     <ClInclude Include="..\..\os\vs_daemon.h" />
     <ClInclude Include="..\..\os\vs_init_cycle.h" />
-    <ClInclude Include="..\..\os\vs_mem.h" />
     <ClInclude Include="..\..\os\vs_process.h" />
     <ClInclude Include="..\..\os\vs_process_cycle.h" />
     <ClInclude Include="..\..\os\vs_signal.h" />

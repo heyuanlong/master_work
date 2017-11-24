@@ -3,7 +3,7 @@
 #include "vs_busi_test.h"
 #include "vs_interface.h"
 #include "vs_net.h"
-
+#include "vs_mem.h"
 #include <string.h>
 
 
@@ -89,10 +89,14 @@ int ko_busi_close_conn(vs_busi_t* busi)
 	vs_net_set_conn_close(busi->c);
 }
 
-vs_busi_t* 	vs_busi_get(int fd)
+vs_busi_t* vs_busi_get(vs_conn_t* c, int fd)
 {
 	vs_busi_t 			*t;
-	t = malloc(sizeof(vs_busi_t));
+	t = vs_palloc(c->pool,sizeof(vs_busi_t));
+	if (!t) {
+		vs_log_error("vs_busi_get vs_palloc fail");
+		return NULL;
+	}
 	t->fd = fd;
 	return t;
 }

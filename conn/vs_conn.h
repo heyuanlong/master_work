@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "vs_core.h"
 #include "vs_rbtree.h"
-
+#include "vs_mem.h"
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -72,6 +72,8 @@ struct vs_conn_s
 	void                    *wev; 				//vs_event_t*
 
 	void					*listening;
+	vs_pool_t				*pool;
+
 };
 
 int 				vs_conn_cycle_init(vs_cycle_t* cycle);

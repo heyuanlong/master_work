@@ -97,8 +97,8 @@
     <ClCompile Include="..\..\conn\vs_conn_connect.c">
       <Filter>conn</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\os\vs_mem.c">
-      <Filter>os</Filter>
+    <ClCompile Include="..\..\core\vs_mem.c">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +177,8 @@
     <ClInclude Include="..\..\conn\vs_conn_connect.h">
       <Filter>conn</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\os\vs_mem.h">
-      <Filter>os</Filter>
+    <ClInclude Include="..\..\core\vs_mem.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

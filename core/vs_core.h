@@ -13,10 +13,20 @@
 #define  true          	1
 #define  false          0
 
-#define  VS_OK          0
-#define  VS_ERROR      -1
+#define  VS_OK					 0
+#define  VS_ERROR				-1
+#define  VS_DECLINED			-5
 
 typedef  unsigned long long			ullong_t;
+
+typedef struct vs_pool_s        	vs_pool_t;
+typedef unsigned int       			vs_uint_t;
+typedef void       					vs_chain_t;
+typedef void       					vs_log_t;
+typedef int        					vs_int_t;
+
+
+
 
 typedef int(*vs_listen_handle_ptr)(void  *conn);
 typedef struct vs_listen_s vs_listen_t; 
@@ -31,7 +41,9 @@ struct vs_listen_s{
 };
 
 typedef struct{
-	vs_listen_t* 	listener;
+	vs_listen_t* 	listener;			//¼àÌýÁ´±í
+	vs_pool_t*		pool;
+
 }vs_cycle_t;
 
 typedef struct{

@@ -15,7 +15,11 @@
 int main(int argc, char const *argv[])
 {
 	vs_cycle_t   *cycle;
-	cycle = malloc(sizeof(vs_cycle_t));
+
+	if ((cycle = vs_cycle_create()) == NULL) {
+		vs_log_sys_error("vs_cycle_create fail\n");
+		return 0;
+	}
 
 	config_init();
 	vs_time_init();

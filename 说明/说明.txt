@@ -44,6 +44,10 @@ add tcp连接				1
 add udp接收				1
 add udp发送				1
 
+conn预分配
+accept socket加锁
+
+
 整理 					
 优化 					
 
