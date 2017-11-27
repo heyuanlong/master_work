@@ -110,7 +110,7 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 		vs_log_sys_error("vs_event_process_init fail");
 		return VS_ERROR;
 	}
-
+	
 	plisten = &cycle->listener;
 	while (*plisten != NULL) {
 		if ((*plisten)->type == SOCK_STREAM) {
@@ -122,10 +122,8 @@ static int vs_worker_process_init(vs_cycle_t *cycle)
 		plisten = &(*plisten)->next;
 	}
 
-	
-
 	vs_net_add_channel_event(vs_channel);
-
+	
 	for ( i = 0; i < vs_last_process; i++)
 	{
 		if (vs_processes[i].channel[0] != -1) {  //按理说，这里不用加条件判断。
