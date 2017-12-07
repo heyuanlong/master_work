@@ -15,7 +15,8 @@ master_work是一个由C开发的，方便快速搭建后端服务的系统。其进程模型（多进程单线程
 ### 1. 进程模型
 一个master进程，多个work进程，均为单线程。master通过unix socket跟work通信。
 
-### 2. 轮训+超时
+### 2. 轮训 + epoll超时
+每个work的工作方式：
 `os/vs_process_cycle.c`
 ```c
 	for ( ; ; )
@@ -55,7 +56,7 @@ int vs_process_events(vs_cycle_t *cycle)
 每一个conn有2条发送相关的链表，待发送链和空闲链，看`conn/vs_conn.h`
 <img src="./doc/img/send.png">
 
-### 6. 内存池
+### 5. 内存池
 `core/vs_mem.h core/vs_mem.c`是直接从nginx `ngx_palloc.h ngx_palloc.c` 简单改过来的。
 
 ## 待补充：
