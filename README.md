@@ -7,7 +7,7 @@ master_work是一个由C开发的，方便快速搭建后端服务的系统。其进程模型（多进程单线程
  - make
  - cd build/master/bin/
  - ./masterbin (ctrl+c 重启子进程，ctrl+\ 关闭所有进程)
- - ./clienttestnet 127.0.0.1 6001 2 5
+ - 客户端测试  ./clienttestnet 127.0.0.1 6001 2 5
 
 
 ## 理解master_work：
@@ -43,10 +43,17 @@ int vs_process_events(vs_cycle_t *cycle)
 	...
 	...
 	...
+ }
 ```
 
 ### 3. recv buf
+每一个conn有一个接受数据的缓存区，看`conn/vs_conn.h`
+<img src="./doc/img/recv.png">
+
 ### 4. send buf
+每一个conn有2条发送相关的链表，待发送链和空闲链，看`conn/vs_conn.h`
+<img src="./doc/img/send.png">
+
 ### 5. 内存池
 
 ## 待补充：
