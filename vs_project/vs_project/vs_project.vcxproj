@@ -170,6 +170,9 @@
     <None Include="..\..\Makefile" />
     <None Include="..\..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\doc\shuoming.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -28,8 +28,8 @@
 #define VS_CONN_SEND_BUD_SIZE			1024
 
 #define TCP_IP							"0.0.0.0"
-#define TCP_PORT						6000
-#define UDP_PORT						6001
+#define TCP_PORT						6001
+#define UDP_PORT						6002
 
 typedef struct vs_conn_send_chain_s vs_conn_send_chain_t;
 struct vs_conn_send_chain_s
