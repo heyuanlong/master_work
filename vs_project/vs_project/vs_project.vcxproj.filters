@@ -183,8 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Makefile" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\说明\说明.txt" />
+    <None Include="..\..\README.md" />
   </ItemGroup>
 </Project>
